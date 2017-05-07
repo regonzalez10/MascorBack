@@ -11,7 +11,9 @@ import DTOS.UserDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,14 +36,13 @@ public class MascotapEntity extends BaseEntity implements Serializable
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="usuarios_seq_gen")
     @SequenceGenerator(name="usuarios_seq_gen", sequenceName="USUARIO_SEQU")
     private Long id;
+ @Basic
     private String localidad;
  
-    @OneToMany (mappedBy = "mascotap", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PodamExclude
+        @ElementCollection
     private List<DogEntity> perros;
     
-    @OneToMany (mappedBy = "mascotap", cascade = CascadeType.ALL, orphanRemoval = true)
-    @PodamExclude
+       @ElementCollection
     private List<UsuarioEntity> usuarios;
 
     public MascotapEntity(Long id, List<DogEntity> perros, List<UsuarioEntity> usuarios) {

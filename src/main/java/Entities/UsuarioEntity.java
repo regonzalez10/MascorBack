@@ -11,6 +11,8 @@ import DTOS.UserDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.ElementCollection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,18 +39,21 @@ public class UsuarioEntity extends BaseEntity implements Serializable
     @SequenceGenerator(name="usuarios_seq_gen", sequenceName="USUARIO_SEQU")
     private Long id;
     
+    @Basic
     private String nombre;
+    @Basic
     private String apellido;
+    @Basic
     private String email;
+    @Basic
     private String password;
+    @Basic
     private String tipo;
     
-    @OneToMany
-    @PodamExclude
+    @ElementCollection
     private List<DogEntity> perros;
     
-    @ManyToOne
-    @PodamExclude
+    @ElementCollection
     private MascotapEntity mascotap;
     
     

@@ -11,6 +11,7 @@ import DTOS.UserDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.NoSql;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -25,6 +28,8 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Ricardo
  */
 @Entity
+
+@NoSql(dataFormat=DataFormatType.MAPPED)
 public class DogEntity extends BaseEntity implements Serializable
 {
 
@@ -34,10 +39,15 @@ public class DogEntity extends BaseEntity implements Serializable
     @SequenceGenerator(name="perros_seq_gen", sequenceName="PERROS_SEQU")
     private Long id;
  
+    @Basic
     private String race;
+    @Basic
     private String name;
+    @Basic
     private Long age;
+    @Basic
     private String description;
+    @Basic
     private Long health;
     
     
