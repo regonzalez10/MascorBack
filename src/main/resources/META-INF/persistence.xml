@@ -12,7 +12,7 @@
     <properties>
         <property name="eclipselink.target-database" value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform"/>
 <property name="eclipselink.nosql.connection-spec" value="org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec"/>
-<property name="eclipselink.nosql.property.mongo.host" value="127.0.0.1"/>
+<property name="eclipselink.nosql.property.mongo.host" value="172.24.42.73"/>
 <property name = "eclipselink.nosql.property.mongo.port" value="27017"/>
 <property name="eclipselink.nosql.property.mongo.db" value="mascor"/>
 <property name="eclipselink.logging.level" value="FINEST"/>
