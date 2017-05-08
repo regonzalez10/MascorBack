@@ -12,10 +12,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -28,15 +30,13 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Ricardo
  */
 @Entity
-
 @NoSql(dataFormat=DataFormatType.MAPPED)
-public class DogEntity extends BaseEntity implements Serializable
+public class DogEntity implements Serializable
 {
 
     
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="perros_seq_gen")
-    @SequenceGenerator(name="perros_seq_gen", sequenceName="PERROS_SEQU")
+    @GeneratedValue
     private Long id;
  
     @Basic
@@ -53,7 +53,6 @@ public class DogEntity extends BaseEntity implements Serializable
     
     
     @ManyToOne
-    @PodamExclude
     private MascotapEntity mascotap;
     
     
@@ -73,6 +72,9 @@ public class DogEntity extends BaseEntity implements Serializable
         this.mascotap = mascotap;
     }
 
+    public Long getId(){
+        return id;
+    }
     public String getRace() {
         return race;
     }

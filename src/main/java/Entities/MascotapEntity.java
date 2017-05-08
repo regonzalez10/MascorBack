@@ -13,14 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.NoSql;
 import uk.co.jemos.podam.common.PodamExclude;
 
 
@@ -29,27 +33,35 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Ricardo
  */
 @Entity
-public class MascotapEntity extends BaseEntity implements Serializable
+@NoSql(dataFormat=DataFormatType.MAPPED)
+public class MascotapEntity implements Serializable
 {
 
- @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="usuarios_seq_gen")
-    @SequenceGenerator(name="usuarios_seq_gen", sequenceName="USUARIO_SEQU")
+    @Id
+    @GeneratedValue
     private Long id;
- @Basic
+
+    @Basic
     private String localidad;
  
-        @ElementCollection
-    private List<DogEntity> perros;
+    @ElementCollection
+    private List<DogEntity> perros = new ArrayList<>();
     
-       @ElementCollection
-    private List<UsuarioEntity> usuarios;
+    @ElementCollection
+    private List<UsuarioEntity> usuarios = new ArrayList<>();
+
+    public MascotapEntity() {
+    }
 
     public MascotapEntity(Long id, List<DogEntity> perros, List<UsuarioEntity> usuarios) {
         this.id = id;
         this.perros = perros;
         this.usuarios = usuarios;
     }
+    public Long getId(){
+        return id;
+    }
+   
 
     public List<DogEntity> getPerros() {
         return perros;

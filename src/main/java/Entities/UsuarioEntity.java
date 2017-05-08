@@ -18,11 +18,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import javax.persistence.SequenceGenerator;
+import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.NoSql;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -30,13 +33,13 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Ricardo
  */
 @Entity
-public class UsuarioEntity extends BaseEntity implements Serializable
+@NoSql(dataFormat=DataFormatType.MAPPED)
+public class UsuarioEntity implements Serializable
 {
 
     
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="usuarios_seq_gen")
-    @SequenceGenerator(name="usuarios_seq_gen", sequenceName="USUARIO_SEQU")
+    @GeneratedValue
     private Long id;
     
     @Basic
@@ -53,7 +56,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable
     @ElementCollection
     private List<DogEntity> perros;
     
-    @ElementCollection
+    @ManyToOne
     private MascotapEntity mascotap;
     
     
@@ -69,9 +72,16 @@ public class UsuarioEntity extends BaseEntity implements Serializable
         this.email = email;
         this.password = password;
         this.tipo = tipo;
+        this.perros = new ArrayList<>();
         this.perros = perros;
         this.mascotap = mascotap;
     }
+public Long getId(){
+        return id;
+    }
+public void setId(Long id){
+    this.id=id;
+}
 
   
     

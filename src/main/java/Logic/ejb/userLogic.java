@@ -30,14 +30,12 @@ import javax.transaction.UserTransaction;
 public class userLogic implements Iuser 
     {
     
-    @PersistenceContext(unitName = "Oracle final", type = PersistenceContextType.TRANSACTION)
-    protected EntityManager em = Persistence.createEntityManagerFactory("Oracle final", System.getProperties()).createEntityManager();
+    @PersistenceContext(unitName = "mascorPU", type = PersistenceContextType.TRANSACTION)
+    protected EntityManager em = Persistence.createEntityManagerFactory("mascorPU", System.getProperties()).createEntityManager();
     
   @Resource
             UserTransaction userTran;
-    
-    @Inject
-            mascotapLogic mascotapLogic;
+
     
     public userLogic(){
     }
