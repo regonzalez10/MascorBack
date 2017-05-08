@@ -37,7 +37,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class UsuarioEntity implements Serializable
 {
 
-    
+     
     @Id
     @GeneratedValue
     private Long id;
@@ -52,6 +52,12 @@ public class UsuarioEntity implements Serializable
     private String password;
     @Basic
     private String tipo;
+     @Basic
+    private String localidad;
+    @Basic
+    private String descripcion;
+    @Basic
+    private Long puntaje;
     
     @ElementCollection
     private List<DogEntity> perros;
@@ -65,15 +71,29 @@ public class UsuarioEntity implements Serializable
         
     }
 
-    public UsuarioEntity( String nombre, String apellido, String email, String password, String tipo, List<DogEntity> perros, MascotapEntity mascotap) {
-       
+    public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, Long puntaje, List<DogEntity> perros, MascotapEntity mascotap) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
         this.tipo = tipo;
-        this.perros = new ArrayList<>();
+        this.localidad = localidad;
+        this.descripcion = descripcion;
+        this.puntaje = puntaje;
         this.perros = perros;
+        this.mascotap = mascotap;
+    }
+
+     public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, Long puntaje, MascotapEntity mascotap) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.tipo = tipo;
+        this.localidad = localidad;
+        this.descripcion = descripcion;
+        this.puntaje = puntaje;
+        this.perros = new ArrayList<DogEntity>();
         this.mascotap = mascotap;
     }
 public Long getId(){
@@ -148,8 +168,8 @@ public void setId(Long id){
         if(mascotap != null){
             pMascotap = mascotap.toDTO();
         }
-       
-        UserDTO p = new UserDTO(tipo, nombre, apellido, email, password, pMascotap);
+      
+        UserDTO p = new  UserDTO(tipo, nombre, apellido, email, password, localidad, descripcion, puntaje, pMascotap);
         p.setPerros(pPerros);
         p.setId(id);
    
@@ -166,8 +186,10 @@ public void setId(Long id){
 
     public UserDTO toDTODetail() 
     {
-        return new UserDTO(nombre,nombre, apellido, email, password,  mascotap.toDTO());
+     
+        return new UserDTO(tipo, nombre, apellido, email, password, localidad, descripcion, puntaje, mascotap.toDTO());
     }
+
 
     
 }

@@ -11,7 +11,7 @@ import Entities.UsuarioEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/** 
  *
  * @author Ricardo
  */
@@ -25,17 +25,49 @@ public class UserDTO extends BaseDTO
     private String apellido;
     private String email;
     private String password;
+    private String localidad;
+    private String descripcion;
+    private Long puntaje;
     private List<DogDTO> perros;
     private MascotapDTO mascotap;
 
-    public UserDTO(String tipo, String nombre, String apellido, String email, String password, MascotapDTO mascotap) {
+    public UserDTO(String tipo, String nombre, String apellido, String email, String password, String localidad, String descripcion, Long puntaje, MascotapDTO mascotap) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.perros = new ArrayList<DogDTO>();
         this.password = password;
+        this.localidad = localidad;
+        this.descripcion = descripcion;
+        this.puntaje = puntaje;
+         this.perros = new ArrayList<DogDTO>();
         this.mascotap = mascotap;
+    }
+    
+
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Long getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Long puntaje) {
+        this.puntaje = puntaje;
     }
 
      
@@ -123,7 +155,7 @@ public class UserDTO extends BaseDTO
             mas=mascotap.toEntity();
         }
       
-        UsuarioEntity ent = new UsuarioEntity( nombre, apellido, email, password, tipo, perrosEntities(), mas);
+        UsuarioEntity ent = new UsuarioEntity(nombre, apellido, email, password, tipo, localidad, descripcion, puntaje,perrosEntities(), mas);
         ent.setId(id);
         
         return ent;

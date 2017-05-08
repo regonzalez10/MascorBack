@@ -125,17 +125,22 @@ public class userLogic implements Iuser
     }
 
     @Override
-    public void eliminarPerro(Long id) {
+    public void eliminarPerro(Long id, Long idPerro) {
          try{
             userTran.begin();
           UsuarioEntity usuario = em.find(UsuarioEntity.class, id);
-        usuario.eliminarPerro(id);
+        usuario.eliminarPerro(idPerro);
          em.merge(usuario);
       userTran.commit();
         }
         catch(Exception e){
 
         }
+    }
+
+    @Override
+    public UserDTO modificarPaciente(Long idUsuario, UserDTO p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
