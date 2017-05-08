@@ -139,7 +139,7 @@ public class userLogic implements Iuser
     }
 
     @Override
-    public UserDTO modificarPaciente(Long idUsuario, UserDTO p) {
+    public UserDTO modificarUsuario(Long idUsuario, UserDTO p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

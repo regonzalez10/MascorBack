@@ -6,6 +6,7 @@
 package Logic.ejb;
 
 import DTOS.DogDTO;
+import DTOS.UserDTO;
 
 import Entities.DogEntity;
 
@@ -88,6 +89,11 @@ public class dogLogic implements Idog {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public DogDTO modificarPerro(Long idPerro, UserDTO p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
