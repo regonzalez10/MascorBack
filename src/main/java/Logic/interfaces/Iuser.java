@@ -30,6 +30,6 @@ public interface Iuser {
     
     public void eliminarPerro(Long id, Long idPerro);
 
-    public UserDTO modificarPaciente(Long idUsuario, UserDTO p);
+    public UserDTO modificarUsuario(Long idUsuario, UserDTO p);
     
 }

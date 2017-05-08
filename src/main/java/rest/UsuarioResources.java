@@ -64,7 +64,7 @@ public class UsuarioResources {
     @Path("{idUsuario:\\d+}")
     public UserDTO updateUsuario(@PathParam("idUsuario") Long idUsuario, UserDTO p)
     {
-        return logic.modificarPaciente(idUsuario, p);
+        return logic.modificarUsuario(idUsuario, p);
     }
     
     @DELETE

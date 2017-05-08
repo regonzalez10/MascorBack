@@ -6,6 +6,7 @@
 package Logic.interfaces;
 
 import DTOS.DogDTO;
+import DTOS.UserDTO;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public interface Idog {
     public List<DogDTO> darPerros();
     
     public void eliminarPerro(Long id);
+
+    public DogDTO modificarPerro(Long idPerro, UserDTO p);
 
     
     
