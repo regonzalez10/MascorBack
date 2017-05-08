@@ -22,11 +22,11 @@ public interface Imascotap {
     
     public List<MascotapDTO> darMascotaps();
     
-    public void eliminarUsuario(Long id);
+    public void eliminarUsuario(Long id, Long idusuario);
     
     public void agregarPerro(Long id, DogDTO dog);
     
-    public void eliminarPerro(Long id);
+    public void eliminarPerro(Long id,Long idperro);
     
     public void agregarUsuario(Long id, UserDTO usuario);
     

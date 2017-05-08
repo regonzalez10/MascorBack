@@ -98,9 +98,9 @@ public class mascotapLogic implements Imascotap {
     }
 
     @Override
-    public void eliminarPerro(Long id) {
+    public void eliminarPerro(Long id,Long idperro) {
           MascotapEntity mascotap = em.find(MascotapEntity.class, id);
-        mascotap.eliminarPerro(id);
+        mascotap.eliminarPerro(idperro);
         try{
             userTran.begin();
          em.merge(mascotap);
@@ -127,11 +127,11 @@ userTran.commit();
     }
 
     @Override
-    public void eliminarUsuario(Long id) {
+    public void eliminarUsuario(Long id, Long idusuario) {
           MascotapEntity mascotap = em.find(MascotapEntity.class, id);
 try{
             userTran.begin();
-        mascotap.eliminarUsuario(id);
+        mascotap.eliminarUsuario(idusuario);
          em.merge(mascotap);
 userTran.commit();
         }
