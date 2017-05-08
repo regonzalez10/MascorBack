@@ -57,7 +57,7 @@ public class UsuarioEntity implements Serializable
     @Basic
     private String descripcion;
     @Basic
-    private long puntaje;
+    private Long puntaje;
     
     @ElementCollection
     private List<DogEntity> perros;
@@ -71,7 +71,7 @@ public class UsuarioEntity implements Serializable
         
     }
 
-    public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, long puntaje, List<DogEntity> perros, MascotapEntity mascotap) {
+    public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, Long puntaje, List<DogEntity> perros, MascotapEntity mascotap) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -84,7 +84,7 @@ public class UsuarioEntity implements Serializable
         this.mascotap = mascotap;
     }
 
-     public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, long puntaje, MascotapEntity mascotap) {
+     public UsuarioEntity(String nombre, String apellido, String email, String password, String tipo, String localidad, String descripcion, Long puntaje, MascotapEntity mascotap) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;

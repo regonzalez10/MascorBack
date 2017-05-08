@@ -28,6 +28,8 @@ public interface Iuser {
     
     public void agregarPerro(Long id, DogDTO dog);
     
-    public void eliminarPerro(Long id);
+    public void eliminarPerro(Long id, Long idPerro);
+
+    public UserDTO modificarPaciente(Long idUsuario, UserDTO p);
     
 }
