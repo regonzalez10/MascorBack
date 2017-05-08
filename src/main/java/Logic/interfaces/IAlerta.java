@@ -5,7 +5,7 @@
  */
 package Logic.interfaces;
 
-import DTOS.DogDTO;
+import DTOS.AlertaDTO;
 import DTOS.UserDTO;
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
  *
  * @author Ricardo
  */
-public interface Idog {
+public interface IAlerta {
     
-    public DogDTO crearPerro(DogDTO perro);
+    public AlertaDTO crearAlerta(AlertaDTO perro, String usuario);
     
-    public DogDTO buscarPerro(String id);
+    public AlertaDTO buscarAlerta(String id);
     
-    public List<DogDTO> darPerros();
+    public List<AlertaDTO> darAlertas();
     
-    public void eliminarPerro(String id);
+    public void eliminarAlerta(String id);
 
-    public DogDTO modificarPerro(String idPerro, UserDTO p);
+    public AlertaDTO modificarAlerta(String idAlerta, UserDTO p);
 
     
     

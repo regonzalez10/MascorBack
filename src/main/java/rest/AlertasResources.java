@@ -5,9 +5,10 @@
  */
 package rest;
 
-import DTOS.DogDTO;
+import DTOS.AlertaDTO;
 import DTOS.UserDTO;
 import Logic.ejb.dogLogic;
+import Logic.interfaces.IAlerta;
 import Logic.interfaces.Idog;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,53 +29,43 @@ import javax.ws.rs.core.Response;
  *
  * @author Ricardo
  */
-@Path("/perros")
+@Path("/usuario/{idUsuario}/alertas")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PerrosResources {
+public class AlertasResources {
     
     @Inject
-    private Idog logic;
-    
- 
-    
+    private IAlerta logic;
+   
     //CRUD
     @POST
-    public Response createPerro (DogDTO p )
+    public Response createAlerta (AlertaDTO p, @PathParam("idUsuario") String idUsuario )
     {
         Logger.getLogger(dogLogic.class.getName()).log(Level.SEVERE, "Crealo pls");
-        DogDTO prro =logic.crearPerro(p);
+        AlertaDTO prro =logic.crearAlerta(p,idUsuario);
         return Response.status(201).entity(prro).build();
     }
     
     @GET
-    @Path("/{idPerro}")
-    public DogDTO getPerro(@PathParam("idPerro")String idPerro)
+    @Path("/{idAlerta}")
+    public AlertaDTO getAlerta(@PathParam("idAlerta")String idAlerta)
     {
-        System.out.println("Resources " + idPerro);
-        return logic.buscarPerro(idPerro);
+        System.out.println("Resources " + idAlerta);
+        return logic.buscarAlerta(idAlerta);
     }
     
     @GET
-    public List<DogDTO> getPerros()
+    public List<AlertaDTO> getAlertas()
     {
 
-        return logic.darPerros();
+        return logic.darAlertas();
     }
             
     @PUT
-    @Path("{idPerro}")
-    public DogDTO updatePerro(@PathParam("idPerro") String idPerro, UserDTO p)
+    @Path("{idAlerta}")
+    public AlertaDTO updateAlerta(@PathParam("idAlerta") String idAlerta, UserDTO p)
     {
-        return logic.modificarPerro(idPerro, p);
-    }
-    
-    @DELETE
-    @Path("{idPerro}")
-    public void deleteUsuario(@PathParam("idPerro")String idPerro)
-    {
-        logic.eliminarPerro(idPerro);
-        
+        return logic.modificarAlerta(idAlerta, p);
     }
     
 }

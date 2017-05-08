@@ -5,10 +5,13 @@
  */
 package Logic.ejb;
 
+import DTOS.AlertaDTO;
 import DTOS.DogDTO;
 import DTOS.UserDTO;
 
-import Entities.DogEntity;
+import Entities.AlertaEntity;
+import Entities.UsuarioEntity;
+import Logic.interfaces.IAlerta;
 
 import Logic.interfaces.Idog;
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ import javax.transaction.UserTransaction;
  * @author Ricardo
  */
  @Singleton  
-public class dogLogic implements Idog {
+public class AlertaLogic implements IAlerta {
 
     
     @PersistenceContext(unitName = "mascorPU", type = PersistenceContextType.TRANSACTION)
@@ -39,15 +42,16 @@ public class dogLogic implements Idog {
     @Resource
             UserTransaction userTran;
     
-    public dogLogic(){
+    public AlertaLogic(){
     }
     
     @Override
-    public DogDTO crearPerro(DogDTO dog)
+    public AlertaDTO crearAlerta(AlertaDTO dog, String usuario)
     {
         try{
            userTran.begin();
-            DogEntity pe = dog.toEntity();
+            AlertaEntity pe = dog.toEntity();
+            pe.setUsuario(em.find(UsuarioEntity.class, usuario));
             System.out.println("Id antes " + pe.getId());
             em.persist(pe);
             userTran.commit();
@@ -62,23 +66,23 @@ public class dogLogic implements Idog {
     }
     
     @Override
-    public DogDTO buscarPerro(String id) {
+    public AlertaDTO buscarAlerta(String id) {
         System.out.println("Logic " + id);
-        DogEntity dog = em.find(DogEntity.class,id);
+        AlertaEntity dog = em.find(AlertaEntity.class,id);
         if(dog!= null)
-        return em.find(DogEntity.class, id).toDTO();
+        return em.find(AlertaEntity.class, id).toDTO();
         else
-            Logger.getLogger(dogLogic.class.getName()).log(Level.SEVERE, "No se ha encontrado el perro");
+            Logger.getLogger(AlertaLogic.class.getName()).log(Level.SEVERE, "No se ha encontrado el perro");
         return null;
         }
     
     @Override
-    public List<DogDTO> darPerros() 
+    public List<AlertaDTO> darAlertas() 
     {
-        List<DogDTO> r = new ArrayList<>();
+        List<AlertaDTO> r = new ArrayList<>();
         
-        Query q = em.createQuery("select u from DogEntity u");
-        List<DogEntity> lista = q.getResultList();
+        Query q = em.createQuery("select u from AlertaEntity u");
+        List<AlertaEntity> lista = q.getResultList();
         for (int i = 0; i < lista.size(); i++) 
         {
             r.add(lista.get(i).toDTO());
@@ -87,10 +91,10 @@ public class dogLogic implements Idog {
     }
     
     @Override
-    public void eliminarPerro(String id) {
+    public void eliminarAlerta(String id) {
         try{
         userTran.begin();
-        em.remove(em.find(DogEntity.class, id));
+        em.remove(em.find(AlertaEntity.class, id));
         userTran.commit();
         }
         catch(Exception e){
@@ -99,9 +103,9 @@ public class dogLogic implements Idog {
     }
 
     @Override
-    public DogDTO modificarPerro(String idPerro, UserDTO p) {
+    public AlertaDTO modificarAlerta(String idAlerta, UserDTO p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     
 }

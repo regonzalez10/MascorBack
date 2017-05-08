@@ -20,13 +20,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author Ricardo
  */
 @Path("/usuario")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces("application/json")
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsuarioResources {
     
@@ -37,17 +38,18 @@ public class UsuarioResources {
     
     //CRUD
     @POST
-    public void createUsuario (UserDTO p )
+    public Response createUsuario (UserDTO p )
     {
         System.out.println("Usuario: " + p.toString());
-        logic.crearUsuario(p);
+        UserDTO us = logic.crearUsuario(p);
+        return Response.status(201).entity(us).build();
     }
     
   
     
     @GET
-    @Path("/{idUsuario:\\d+}")
-    public UserDTO getUsuario(@PathParam("idUsuario")Long idUsuario)
+    @Path("/{idUsuario}")
+    public UserDTO getUsuario(@PathParam("idUsuario")String idUsuario)
     {
         System.out.println("Resources " + idUsuario);
         return logic.buscarUsuario(idUsuario);
@@ -61,23 +63,23 @@ public class UsuarioResources {
     }
             
     @PUT
-    @Path("{idUsuario:\\d+}")
-    public UserDTO updateUsuario(@PathParam("idUsuario") Long idUsuario, UserDTO p)
+    @Path("{idUsuario}")
+    public UserDTO updateUsuario(@PathParam("idUsuario") String idUsuario, UserDTO p)
     {
         return logic.modificarUsuario(idUsuario, p);
     }
     
     @DELETE
-    @Path("{idUsuario:\\d+}/")
-    public void deleteUsuario(@PathParam("idUsuario")Long idUsuario)
+    @Path("{idUsuario}")
+    public void deleteUsuario(@PathParam("idUsuario")String idUsuario)
     {
         logic.eliminarUsuario(idUsuario);
         
     }
     
      @GET
-    @Path("{idUsuario:\\d+}/perrosFavoritos")
-    public List<DogDTO> getListaPerros (@PathParam("idUsuario") Long idUsuario)
+    @Path("{idUsuario}/perrosFavoritos")
+    public List<DogDTO> getListaPerros (@PathParam("idUsuario") String idUsuario)
     {
         
         List<DogDTO> l = logic.getPerrosUsuario(idUsuario);
@@ -86,15 +88,16 @@ public class UsuarioResources {
     }
     
        @POST
-          @Path("{idUsuario:\\/")
-    public void agregarPerro (@PathParam("idPerro") Long idUsuario,DogDTO p )
+          @Path("{idUsuario}/perro/{idPerro}")
+    public Response agregarPerro (@PathParam("idUsuario") String idUsuario,@PathParam("idPerro") String idPerro )
     {
-        System.out.println("Usuario: " + p.toString());
-        logic.agregarPerro(idUsuario, p);
+        System.out.println("Usuario: " + idUsuario);
+        logic.agregarPerro(idUsuario, idPerro);
+        return Response.status(201).entity(getUsuario(idUsuario)).build();
     }
        @DELETE
-    @Path("{idUsuario:\\/d+/idPerro:\\/d+}/")
-    public void deletePerroEnLista(@PathParam("idUsuario")Long idUsuario,@PathParam("idPerro") Long idPerro)
+    @Path("{idUsuario}/{idPerro}/")
+    public void deletePerroEnLista(@PathParam("idUsuario")String idUsuario,@PathParam("idPerro") String idPerro)
     {
         logic.eliminarPerro(idUsuario,idPerro);
         

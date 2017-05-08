@@ -9,6 +9,7 @@ import DTOS.DogDTO;
 import DTOS.UserDTO;
 import Entities.DogEntity;
 import Entities.UsuarioEntity;
+import Logic.interfaces.Idog;
 import Logic.interfaces.Iuser;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,9 @@ public class userLogic implements Iuser
     
   @Resource
             UserTransaction userTran;
-
+            
+    @Inject
+    private Idog logic;
     
     public userLogic(){
     }
@@ -60,9 +63,9 @@ public class userLogic implements Iuser
     }
     
     @Override
-    public UserDTO buscarUsuario(Long id) {
+    public UserDTO buscarUsuario(String id) {
         System.out.println("Logic " + id);
-        return em.find(UsuarioEntity.class, id).toDTODetail();
+        return em.find(UsuarioEntity.class, id).toDTO();
     }
     
     @Override
@@ -74,13 +77,13 @@ public class userLogic implements Iuser
         List<UsuarioEntity> lista = q.getResultList();
         for (int i = 0; i < lista.size(); i++) 
         {
-            r.add(lista.get(i).toDTODetail());
+            r.add(lista.get(i).toDTO());
         }
         return r;
     }
     
     @Override
-    public void eliminarUsuario(Long id) {
+    public void eliminarUsuario(String id) {
         try{
         userTran.begin();
         em.remove(em.find(UsuarioEntity.class, id));
@@ -93,13 +96,13 @@ public class userLogic implements Iuser
     
   
     
-    public List<DogDTO> getPerrosUsuario(Long idUsuario)
+    public List<DogDTO> getPerrosUsuario(String idUsuario)
     {
         ArrayList r = new ArrayList<DogDTO>();
         
         UsuarioEntity p= em.find(UsuarioEntity.class,idUsuario);
      
-        ArrayList<DogEntity> z = new ArrayList<DogEntity>();
+        List<DogEntity> z = p.getPerros();
         for (int i = 0; i < z.size(); i++) {
             r.add(z.get(i).toDTO());
             
@@ -111,13 +114,15 @@ public class userLogic implements Iuser
 
 
     @Override
-    public void agregarPerro(Long id, DogDTO dog) {
+    public void agregarPerro(String id, String dog) {
          try{
+             DogDTO perro = null;
             userTran.begin();
         UsuarioEntity usuario = em.find(UsuarioEntity.class, id);
-        usuario.agregarPerro(dog.toEntity());
+            DogEntity prro = em.find(DogEntity.class, dog);            
+        usuario.agregarPerro(prro);
         em.merge(usuario);
-             userTran.commit();
+        userTran.commit();
         }
         catch(Exception e){
 
@@ -125,10 +130,11 @@ public class userLogic implements Iuser
     }
 
     @Override
-    public void eliminarPerro(Long id, Long idPerro) {
+    public void eliminarPerro(String id, String idPerro) {
          try{
             userTran.begin();
           UsuarioEntity usuario = em.find(UsuarioEntity.class, id);
+          
         usuario.eliminarPerro(idPerro);
          em.merge(usuario);
       userTran.commit();
@@ -139,7 +145,7 @@ public class userLogic implements Iuser
     }
 
     @Override
-    public UserDTO modificarUsuario(Long idUsuario, UserDTO p) {
+    public UserDTO modificarUsuario(String idUsuario, UserDTO p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

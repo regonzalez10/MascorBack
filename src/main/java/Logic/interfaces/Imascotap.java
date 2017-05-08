@@ -18,16 +18,16 @@ public interface Imascotap {
     
     public MascotapDTO crearMascotap(MascotapDTO  mascotap);
     
-    public MascotapDTO buscarMascotap(Long id);
+    public MascotapDTO buscarMascotap(String id);
     
     public List<MascotapDTO> darMascotaps();
     
-    public void eliminarUsuario(Long id, Long idusuario);
+    public void eliminarUsuario(String id, String idusuario);
     
-    public void agregarPerro(Long id, DogDTO dog);
+    public void agregarPerro(String id, String dog);
     
-    public void eliminarPerro(Long id,Long idperro);
+    public void eliminarPerro(String id,String idperro);
     
-    public void agregarUsuario(Long id, UserDTO usuario);
+    public void agregarUsuario(String id, String usuario);
     
 }

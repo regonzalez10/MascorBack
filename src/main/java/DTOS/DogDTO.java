@@ -20,13 +20,38 @@ public class DogDTO extends BaseDTO
     private String description;
     private Long health;
     private MascotapDTO mascotap;
+    private String url;
+    private Long numContacto;
 
-    public DogDTO(String race, String name, Long age, Long health, MascotapDTO mascotap) {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Long getNumContacto() {
+        return numContacto;
+    }
+
+    public void setNumContacto(Long numContacto) {
+        this.numContacto = numContacto;
+    }
+
+    public DogDTO(String race, String name,String description, Long age, Long health,String url, Long numContacto, MascotapDTO mascotap) {
         this.race = race;
         this.name = name;
         this.age = age;
         this.health = health;
         this.mascotap = mascotap;
+        this.description = description;
+        this.url = url;
+        this.numContacto = numContacto;
+        this.mascotap = mascotap;
+    }
+    public DogDTO(){
+        
     }
 
     public String getRace() {
@@ -45,7 +70,7 @@ public class DogDTO extends BaseDTO
         this.name = name;
     }
 
-    public long getAge() {
+    public Long getAge() {
         return age;
     }
 
@@ -61,7 +86,7 @@ public class DogDTO extends BaseDTO
         this.description = description;
     }
 
-    public long getHealth() {
+    public Long getHealth() {
         return health;
     }
 
@@ -84,9 +109,8 @@ public class DogDTO extends BaseDTO
         {
             mas=mascotap.toEntity();
         }
-        DogEntity ent = new DogEntity(race, name, age, description, health, mas);
-        
-//        ent.setId(id);
+        DogEntity ent = new DogEntity(race, name, age, description, health, url, numContacto,mas);
+        ent.setId(id);
         
         return ent;
     }

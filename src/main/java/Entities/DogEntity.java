@@ -22,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.Field;
 import org.eclipse.persistence.nosql.annotations.NoSql;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -37,7 +38,8 @@ public class DogEntity implements Serializable
     
     @Id
     @GeneratedValue
-    private Long id;
+    @Field(name="_id")
+    private String id;
  
     @Basic
     private String race;
@@ -49,8 +51,10 @@ public class DogEntity implements Serializable
     private String description;
     @Basic
     private Long health;
-    
-    
+    @Basic
+    private String url;
+    @Basic
+    private Long numContacto;
     
     @ManyToOne
     private MascotapEntity mascotap;
@@ -63,17 +67,23 @@ public class DogEntity implements Serializable
         
     }
 
-    public DogEntity(String race, String name, long age, String description, long health, MascotapEntity mascotap) {
+    public DogEntity(String race, String name, Long age, String description, Long health,String url, Long numContacto, MascotapEntity mascotap) {
         this.race = race;
         this.name = name;
         this.age = age;
         this.description = description;
         this.health = health;
         this.mascotap = mascotap;
+        this.url = url;
+        this.numContacto = numContacto;
+       
     }
 
-    public Long getId(){
+    public String getId(){
         return id;
+    }
+    public void setId(String id){
+        this.id = id;
     }
     public String getRace() {
         return race;
@@ -91,11 +101,11 @@ public class DogEntity implements Serializable
         this.name = name;
     }
 
-    public long getAge() {
+    public Long getAge() {
         return age;
     }
 
-    public void setAge(long age) {
+    public void setAge(Long age) {
         this.age = age;
     }
 
@@ -107,12 +117,28 @@ public class DogEntity implements Serializable
         this.description = description;
     }
 
-    public long getHealth() {
+    public Long getHealth() {
         return health;
     }
 
-    public void setHealth(long health) {
+    public void setHealth(Long health) {
         this.health = health;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Long getNumContacto() {
+        return numContacto;
+    }
+
+    public void setNumContacto(Long numContacto) {
+        this.numContacto = numContacto;
     }
     
   
@@ -132,7 +158,7 @@ public class DogEntity implements Serializable
             pMascotap = mascotap.toDTO();
         }
        
-        DogDTO p = new DogDTO(race, name, age, health, pMascotap);
+        DogDTO p = new DogDTO(race, name,description, age, health,url, numContacto, pMascotap);
         
         p.setId(id);
    
@@ -147,10 +173,5 @@ public class DogEntity implements Serializable
 
    
 
-    public DogDTO toDTODetail() 
-    {
-        return new DogDTO(race, name, age, health, mascotap.toDTO());
-    }
-
-    
+   
 }

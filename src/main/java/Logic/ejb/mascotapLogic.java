@@ -63,9 +63,9 @@ public class mascotapLogic implements Imascotap {
     }
     
     @Override
-    public MascotapDTO buscarMascotap(Long id) {
+    public MascotapDTO buscarMascotap(String id) {
         System.out.println("Logic " + id);
-        return em.find(MascotapEntity.class, id).toDTODetail();
+        return em.find(MascotapEntity.class, id).toDTO();
     }
     
     @Override
@@ -77,19 +77,21 @@ public class mascotapLogic implements Imascotap {
         List<MascotapEntity> lista = q.getResultList();
         for (int i = 0; i < lista.size(); i++) 
         {
-            r.add(lista.get(i).toDTODetail());
+            r.add(lista.get(i).toDTO());
         }
         return r;
     }
 
 
      @Override
-    public void agregarPerro(Long id, DogDTO dog) {
+    public void agregarPerro(String id, String dog) {
         MascotapEntity mascotap = em.find(MascotapEntity.class, id);
-        mascotap.agregarPerro(dog.toEntity());
+        DogEntity doggo = em.find(DogEntity.class, dog);
+        mascotap.agregarPerro(doggo);
         try{
             userTran.begin();
         em.merge(mascotap);
+        
         userTran.commit();
         }
         catch(Exception e){
@@ -98,7 +100,7 @@ public class mascotapLogic implements Imascotap {
     }
 
     @Override
-    public void eliminarPerro(Long id,Long idperro) {
+    public void eliminarPerro(String id,String idperro) {
           MascotapEntity mascotap = em.find(MascotapEntity.class, id);
         mascotap.eliminarPerro(idperro);
         try{
@@ -113,9 +115,10 @@ userTran.commit();
     }
     
      @Override
-    public void agregarUsuario(Long id, UserDTO usuario) {
+    public void agregarUsuario(String id, String usuario) {
         MascotapEntity mascotap = em.find(MascotapEntity.class, id);
-        mascotap.agregarUsuario(usuario.toEntity());
+        UsuarioEntity user = em.find(UsuarioEntity.class, usuario);
+        mascotap.agregarUsuario(user);
         try{
             userTran.begin();
         em.merge(mascotap);
@@ -127,7 +130,7 @@ userTran.commit();
     }
 
     @Override
-    public void eliminarUsuario(Long id, Long idusuario) {
+    public void eliminarUsuario(String id, String idusuario) {
           MascotapEntity mascotap = em.find(MascotapEntity.class, id);
 try{
             userTran.begin();

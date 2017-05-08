@@ -28,6 +28,9 @@ public class MascotapDTO extends BaseDTO{
        this.userList = new ArrayList<UserDTO>();
        this.localidad = localidad;
     }
+    public MascotapDTO(){
+        
+    }
 
     public List<DogDTO> getDogList() {
         return dogList;
@@ -98,8 +101,8 @@ public class MascotapDTO extends BaseDTO{
     public MascotapEntity toEntity() {
    
       
-        MascotapEntity ent = new MascotapEntity(id, perrosEntities(), usuariosEntities());
-//        ent.setId(id);
+        MascotapEntity ent = new MascotapEntity(id,localidad, perrosEntities(), usuariosEntities());
+       ent.setId(id);
         
         return ent;
     }

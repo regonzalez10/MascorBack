@@ -26,24 +26,26 @@ public class UserDTO extends BaseDTO
     private String email;
     private String password;
     private String localidad;
-    private String descripcion;
+    private String contacto;
     private Long puntaje;
     private List<DogDTO> perros;
     private MascotapDTO mascotap;
 
-    public UserDTO(String tipo, String nombre, String apellido, String email, String password, String localidad, String descripcion, Long puntaje, MascotapDTO mascotap) {
+    public UserDTO(String tipo, String nombre, String apellido, String email, String password, String localidad, String contacto, Long puntaje, MascotapDTO mascotap) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
         this.localidad = localidad;
-        this.descripcion = descripcion;
+        this.contacto = contacto;
         this.puntaje = puntaje;
          this.perros = new ArrayList<DogDTO>();
         this.mascotap = mascotap;
     }
-    
+    public UserDTO(){
+        
+    }
 
 
     public String getLocalidad() {
@@ -54,12 +56,12 @@ public class UserDTO extends BaseDTO
         this.localidad = localidad;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getContacto() {
+        return contacto;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
     public Long getPuntaje() {
@@ -155,7 +157,7 @@ public class UserDTO extends BaseDTO
             mas=mascotap.toEntity();
         }
       
-        UsuarioEntity ent = new UsuarioEntity(nombre, apellido, email, password, tipo, localidad, descripcion, puntaje,perrosEntities(), mas);
+        UsuarioEntity ent = new UsuarioEntity(nombre, apellido, email, password, tipo, localidad, contacto, puntaje,perrosEntities(), mas);
         ent.setId(id);
         
         return ent;

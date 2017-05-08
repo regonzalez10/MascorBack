@@ -21,13 +21,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author Ricardo
  */
-@Path("/usuario")
-@Produces(MediaType.APPLICATION_JSON)
+@Path("/mascotap")
+@Produces("application/json")
 @Consumes(MediaType.APPLICATION_JSON)
 public class MascotapResources {
     
@@ -38,17 +39,18 @@ public class MascotapResources {
     
     //CRUD
     @POST
-    public void createMascotap (MascotapDTO p )
+    public Response createMascotap (MascotapDTO p )
     {
-        System.out.println("Usuario: " + p.toString());
-        logic.crearMascotap(p);
+        System.out.println("Mascotap: " + p.toString());
+        MascotapDTO masco = logic.crearMascotap(p);
+        return Response.status(201).entity(masco).build();
     }
     
   
     
     @GET
-    @Path("/{idMascotap:\\d+}")
-    public MascotapDTO getMascotap(@PathParam("idMascotap")Long idMascotap)
+    @Path("/{idMascotap}")
+    public MascotapDTO getMascotap(@PathParam("idMascotap")String idMascotap)
     {
         System.out.println("Resources " + idMascotap);
         return logic.buscarMascotap(idMascotap);
@@ -64,30 +66,30 @@ public class MascotapResources {
     
     
        @POST
-          @Path("{idMascotap:\\/")
-    public void agregarPerro (@PathParam("idMascotap") Long idMascotap,DogDTO p )
+          @Path("{idMascotap}/perro/{idPerro}")
+    public void agregarPerro (@PathParam("idMascotap") String idMascotap,@PathParam("idPerro") String idPerro )
     {
-        System.out.println("Mascotap: " + p.toString());
-        logic.agregarPerro(idMascotap, p);
+        System.out.println("Mascotap: " + idMascotap);
+        logic.agregarPerro(idMascotap, idPerro);
     }
        @DELETE
-    @Path("{idMascotap:\\/d+/idPerro:\\/d+}/")
-    public void deletePerroEnLista(@PathParam("idMascotap")Long idMascotap,@PathParam("idPerro") Long idPerro)
+    @Path("{idMascotap}/perro/{idPerro}")
+    public void deletePerroEnLista(@PathParam("idMascotap")String idMascotap,@PathParam("idPerro") String idPerro)
     {
         logic.eliminarPerro(idMascotap,idPerro);
         
     }
     
        @POST
-          @Path("{idMascotap:\\/")
-    public void agregarUsuario (@PathParam("idMascotap") Long idMascotap,UserDTO p )
+          @Path("{idMascotap}/usuario/{idUsuario}")
+    public void agregarUsuario (@PathParam("idMascotap") String idMascotap,@PathParam("idUsuario")String idUsuario )
     {
-        System.out.println("Mascotap: " + p.toString());
-        logic.agregarUsuario(idMascotap, p);
+        System.out.println("Mascotap: " + idMascotap);
+        logic.agregarUsuario(idMascotap, idUsuario);
     }
        @DELETE
-    @Path("{idMascotap:\\/d+/idUsuario:\\/d+}/")
-    public void deleteUsuarioEnLista(@PathParam("idMascotap")Long idMascotap,@PathParam("idUsuario") Long idUsuario)
+    @Path("{idMascotap}/usuario/{idUsuario}")
+    public void deleteUsuarioEnLista(@PathParam("idMascotap")String idMascotap,@PathParam("idUsuario") String idUsuario)
     {
         logic.eliminarUsuario(idMascotap,idUsuario);
         

@@ -18,18 +18,18 @@ public interface Iuser {
     
     public UserDTO crearUsuario(UserDTO usuario);
     
-    public UserDTO buscarUsuario(Long id);
+    public UserDTO buscarUsuario(String id);
     
     public List<UserDTO> darUsuarios();
     
-    public void eliminarUsuario(Long id);
+    public void eliminarUsuario(String id);
 
-    public List<DogDTO> getPerrosUsuario(Long idPaciente);
+    public List<DogDTO> getPerrosUsuario(String idPaciente);
     
-    public void agregarPerro(Long id, DogDTO dog);
+    public void agregarPerro(String id, String dog);
     
-    public void eliminarPerro(Long id, Long idPerro);
+    public void eliminarPerro(String id, String idPerro);
 
-    public UserDTO modificarUsuario(Long idUsuario, UserDTO p);
+    public UserDTO modificarUsuario(String idUsuario, UserDTO p);
     
 }

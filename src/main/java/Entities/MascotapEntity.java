@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import org.eclipse.persistence.nosql.annotations.DataFormatType;
+import org.eclipse.persistence.nosql.annotations.Field;
 import org.eclipse.persistence.nosql.annotations.NoSql;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -39,7 +40,8 @@ public class MascotapEntity implements Serializable
 
     @Id
     @GeneratedValue
-    private Long id;
+    @Field(name="_id")
+    private String id;
 
     @Basic
     private String localidad;
@@ -53,13 +55,17 @@ public class MascotapEntity implements Serializable
     public MascotapEntity() {
     }
 
-    public MascotapEntity(Long id, List<DogEntity> perros, List<UsuarioEntity> usuarios) {
+    public MascotapEntity(String id, String localidad, List<DogEntity> perros, List<UsuarioEntity> usuarios) {
         this.id = id;
         this.perros = perros;
         this.usuarios = usuarios;
+        this.localidad = localidad;
     }
-    public Long getId(){
+    public String getId(){
         return id;
+    }
+     public void setId(String id){
+        this.id = id;
     }
    
 
@@ -112,15 +118,12 @@ public class MascotapEntity implements Serializable
         return p;
     }
 
-    public MascotapDTO toDTODetail() {
-          return new MascotapDTO(localidad);
-    }
 
         
     public void agregarPerro(DogEntity toEntity) {
         perros.add(toEntity);
     }
-    public void eliminarPerro(Long id) {
+    public void eliminarPerro(String id) {
         perros.remove(id);
     }
 
@@ -128,7 +131,7 @@ public class MascotapEntity implements Serializable
     public void agregarUsuario(UsuarioEntity toEntity) {
         usuarios.add(toEntity);
     }
-    public void eliminarUsuario(Long id) {
+    public void eliminarUsuario(String id) {
         usuarios.remove(id);
     }
     
